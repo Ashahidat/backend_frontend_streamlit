@@ -30,9 +30,10 @@ def get_satisfaction():
     cursor = conn.cursor()
     # Jointure avec la table utilisateurs pour récupérer le genre
     cursor.execute("""
-        SELECT s.*, u.genre
-        FROM satisfaction s
-        JOIN utilisateurs u ON s.utilisateur_id = u.id
+    SELECT s.*, c.nom AS categorie, o.date_detection
+    FROM satisfactions s
+    JOIN objets o ON s.utilisateur_id = o.utilisateur_id
+    JOIN categories c ON o.categorie_id = c.id;
     """)
     data = cursor.fetchall()
     conn.close()
